@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'Aspekta';
+	src: url('/fonts/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf');
+}
+
+body {
+	font-family: 'Aspekta';
+	color: white;
+	background-color: black;
+}
