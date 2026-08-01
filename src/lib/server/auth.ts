@@ -16,11 +16,6 @@ export const getAuth = () => {
 		baseURL: env.ORIGIN,
 		secret: env.BETTER_AUTH_SECRET,
 		database: mongodbAdapter(db, { client }),
-		advanced: {
-			database: {
-				generateId: false
-			}
-		},
 		emailAndPassword: { enabled: true },
 		user: {
 			deleteUser: {
