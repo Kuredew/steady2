@@ -24,8 +24,5 @@ export default defineConfig({
 				}
 			}
 		})
-	],
-	ssr: {
-		noExternal: ['better-auth', 'mongodb', 'mongoose', 'bson']
-	}
+	]
 });
