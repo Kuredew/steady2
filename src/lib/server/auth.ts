@@ -10,13 +10,10 @@ let auth: ReturnType<typeof betterAuth> | null = null;
 export const getAuth = () => {
 	if (auth) return auth;
 
-	const client = mongoose.connection.getClient();
-	const db = client.db('steady2');
-
 	const config: BetterAuthOptions = {
 		baseURL: env.ORIGIN,
 		secret: env.BETTER_AUTH_SECRET,
-		database: mongodbAdapter(db, { client }),
+		database: mongodbAdapter(mongoose.connection.db),
 		emailAndPassword: { enabled: true },
 		user: {
 			deleteUser: {
