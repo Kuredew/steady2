@@ -54,6 +54,7 @@ export const actions = {
 				});
 
 			goal.checkoutsCount++;
+			goal.latestCheckoutsDate = new Date();
 			await goal.save();
 
 			return { success: true, message: 'Success' };
