@@ -19,7 +19,13 @@
 		<form
 			method="post"
 			action="?/signInEmail"
-			use:enhance
+			use:enhance={() => {
+				loading = true;
+
+				return () => {
+					loading = false;
+				};
+			}}
 			class="flex w-150 max-w-dvw flex-col gap-8 p-6"
 		>
 			<div class="flex flex-col gap-2">
