@@ -22,8 +22,10 @@
 			use:enhance={() => {
 				loading = true;
 
-				return () => {
+				return (event) => {
 					loading = false;
+
+					event.update();
 				};
 			}}
 			class="flex w-150 max-w-dvw flex-col gap-8 p-6"
