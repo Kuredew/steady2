@@ -17,6 +17,11 @@ export const getAuth = () => {
 		secret: env.BETTER_AUTH_SECRET,
 		database: mongodbAdapter(db, { client }),
 		emailAndPassword: { enabled: true },
+		advanced: {
+			database: {
+				generateId: false
+			}
+		},
 		user: {
 			deleteUser: {
 				enabled: true
