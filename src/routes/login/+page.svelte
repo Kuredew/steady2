@@ -10,6 +10,7 @@
 
 	import type { ActionData } from './$types';
 
+	let loading = $state(false);
 	let { form }: { form: ActionData } = $props();
 </script>
 
@@ -18,7 +19,15 @@
 		<form
 			method="post"
 			action="?/signInEmail"
-			use:enhance
+			use:enhance={() => {
+				loading = true;
+
+				return (event) => {
+					loading = false;
+
+					event.update();
+				};
+			}}
 			class="flex w-150 max-w-dvw flex-col gap-8 p-6"
 		>
 			<div class="flex flex-col gap-2">
@@ -38,7 +47,13 @@
 
 			<div class="flex flex-col items-center gap-2">
 				<Paragraph class="text-red-300">{form?.message}</Paragraph>
-				<Button type="submit" class="w-full text-lg!" variant="primary" label="Let Me In!" />
+				<Button
+					type="submit"
+					disabled={loading}
+					class="w-full text-lg!"
+					variant="primary"
+					label={!loading ? 'Let Me In!' : 'Loading...'}
+				/>
 				<ParagraphDimmed
 					>Don't have an account? <a href={resolve('/register')} class="font-bold">Register</a
 					></ParagraphDimmed
