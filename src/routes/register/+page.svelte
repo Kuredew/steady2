@@ -9,7 +9,6 @@
 	import ParagraphDimmed from '../../components/ParagraphDimmed.svelte';
 
 	import type { ActionData } from './$types';
-	let loading = $state(false);
 
 	let { form }: { form: ActionData } = $props();
 </script>
@@ -19,9 +18,7 @@
 		<form
 			method="post"
 			action="?/signUpEmail"
-			use:enhance={() => {
-				loading = true;
-			}}
+			use:enhance
 			class="flex w-150 max-w-dvw flex-col gap-8 p-6"
 		>
 			<div class="flex flex-col gap-2">
@@ -41,13 +38,7 @@
 
 			<div class="flex flex-col items-center gap-2">
 				<Paragraph class="text-red-300">{form?.message}</Paragraph>
-				<Button
-					class="w-full text-lg!"
-					type="submit"
-					disabled={loading}
-					variant="primary"
-					label={!loading ? 'Introduce Myself!' : 'Loading...'}
-				/>
+				<Button class="w-full text-lg!" variant="primary" label="Introduce Myself!" />
 				<ParagraphDimmed
 					>Already have an account? <a href={resolve('/login')} class="font-bold">Login</a
 					></ParagraphDimmed

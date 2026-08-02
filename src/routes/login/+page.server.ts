@@ -30,7 +30,7 @@ export const actions: Actions = {
 			if (error instanceof APIError) {
 				return fail(400, { message: error.message || 'Signin failed' });
 			}
-			return fail(500, { message: `Unexpected error: ${String(error)}` });
+			return fail(500, { message: 'Unexpected error' });
 		}
 
 		return redirect(302, '/dashboard');
