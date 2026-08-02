@@ -4,6 +4,7 @@ import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { getRequestEvent } from '$app/server';
 import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
 
 let auth: ReturnType<typeof betterAuth> | null = null;
 
@@ -19,7 +20,7 @@ export const getAuth = () => {
 		emailAndPassword: { enabled: true },
 		advanced: {
 			database: {
-				generateId: false
+				generateId: () => new ObjectId().toHexString()
 			}
 		},
 		user: {
