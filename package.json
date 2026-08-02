@@ -48,6 +48,7 @@
 		"@sglara/cn": "^1.0.0",
 		"better-sqlite3": "^12.10.0",
 		"lottie-web": "^5.13.0",
+		"mongodb": "^7.5.0",
 		"mongoose": "^9.9.0",
 		"sveltekit-top-loader": "^0.1.0"
 	}
