@@ -58,6 +58,7 @@
 	let checkouting = $state(false);
 	let checkouted = $state(false);
 	let button = $state<HTMLButtonElement | null>(null);
+	let resetClicked = $state(false);
 
 	const triggerAnimation = () => {
 		checkouted = true;
@@ -135,6 +136,41 @@
 							</form>
 						</div>
 					</div>
+				{:else if resetClicked}
+					<div class="flex h-full flex-col justify-center gap-4">
+						<HeadingLarge>Are you sure you want to reset the checkouts?</HeadingLarge>
+						<ParagraphDimmed
+							>Resetting the checkouts will restart them from 0. This means you'll lose your
+							progress. Do you want to continue?</ParagraphDimmed
+						>
+						<div class="flex gap-4">
+							<form
+								method="POST"
+								action="?/reset"
+								use:enhance={() => {
+									checkouting = true;
+									return async (event) => {
+										await event.update();
+
+										if (event.result.type === 'success') {
+											resetClicked = false;
+											triggerAnimation();
+										}
+									};
+								}}
+							>
+								<Button type="submit" label={!checkouting ? 'Yes, Please' : 'Loading...'} />
+							</form>
+							<Button
+								type="submit"
+								label="Cancel"
+								variant="secondary"
+								onclick={() => {
+									resetClicked = false;
+								}}
+							/>
+						</div>
+					</div>
 				{:else}
 					<div class="flex flex-1 flex-col gap-8">
 						<div class="flex flex-col">
@@ -167,6 +203,14 @@
 								<button class="cursor-pointer" onclick={triggerAnimation}
 									><span class="font-medium underline"> click here </span></button
 								>
+							</ParagraphDimmed>
+							<ParagraphDimmed>
+								Oh, and one more thing—if you want to reset your progress, <button
+									class="cursor-pointer font-medium underline"
+									onclick={() => {
+										resetClicked = true;
+									}}>click here</button
+								> to reset the checkout
 							</ParagraphDimmed>
 						</div>
 
