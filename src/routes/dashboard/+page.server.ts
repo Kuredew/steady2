@@ -88,5 +88,23 @@ export const actions = {
 		} catch (e) {
 			return fail(500, { message: String(e) });
 		}
+	},
+	reset: async (event) => {
+		const user = event.locals.user;
+
+		try {
+			const goal = await GoalModel.findOne({ authorId: user?.id });
+			if (!goal)
+				return fail(400, {
+					message: 'Data not found'
+				});
+
+			goal.checkoutsCount = 0;
+			await goal.save();
+
+			return { success: true, message: 'Data resetted' };
+		} catch (e) {
+			return fail(500, { message: String(e) });
+		}
 	}
 };
