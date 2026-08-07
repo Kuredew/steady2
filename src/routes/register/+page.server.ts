@@ -1,15 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import type { PageServerLoad } from './$types';
 import { APIError } from 'better-auth/api';
 import { getAuth } from '$lib/server/auth';
-
-export const load: PageServerLoad = (event) => {
-	if (event.locals.user) {
-		return redirect(302, '/dashboard');
-	}
-	return {};
-};
 
 export const actions: Actions = {
 	signUpEmail: async (event) => {

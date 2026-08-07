@@ -14,6 +14,10 @@ const handleBetterAuth: Handle = async ({ event, resolve }) => {
 	const session = await auth.api.getSession({ headers: event.request.headers });
 
 	if (session) {
+		if (isGuestPath) {
+			throw redirect(303, '/dashboard');
+		}
+
 		event.locals.session = session.session;
 		event.locals.user = session.user;
 	} else if (!isGuestPath) {
