@@ -1,6 +1,6 @@
 import { GoalModel } from '$lib/model/goal.model.js';
 import { getAuth } from '$lib/server/auth.js';
-import { isYesterdayOrMore } from '$lib/util/date.js';
+import { calculateManyDays, isYesterdayOrMore } from '$lib/util/date.js';
 import { serializeNonPOJOs } from '$lib/util/serialize.js';
 import { fail, redirect } from '@sveltejs/kit';
 
@@ -26,11 +26,13 @@ export const load = async (event) => {
 	}
 
 	let canCheckout = false;
-	if (isYesterdayOrMore(goal.latestCheckoutsDate) || goal.checkoutsCount <= 0) {
+	let manyDays = calculateManyDays(goal.createdAt, new Date());
+	if (isYesterdayOrMore(goal.latestCheckoutsDate)) {
 		canCheckout = true;
+		manyDays--;
 	}
 
-	return { user: event.locals.user, quote, goal: serializeNonPOJOs(goal), canCheckout };
+	return { user: event.locals.user, quote, goal: serializeNonPOJOs(goal), canCheckout, manyDays };
 };
 
 export const actions = {
@@ -53,7 +55,6 @@ export const actions = {
 					message: 'Data not found'
 				});
 
-			goal.checkoutsCount++;
 			goal.latestCheckoutsDate = new Date();
 			await goal.save();
 
@@ -99,7 +100,7 @@ export const actions = {
 					message: 'Data not found'
 				});
 
-			goal.checkoutsCount = 0;
+			// goal.checkoutsCount = 0;
 			await goal.save();
 
 			return { success: true, message: 'Data resetted' };

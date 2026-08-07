@@ -106,7 +106,7 @@
 				renderer={animationDataPaths[animationDataCurrentIndex].renderer ?? 'html'}
 				aspectRatio={animationDataPaths[animationDataCurrentIndex].aspectRatio}
 				dataJsonPath={animationDataPaths[animationDataCurrentIndex].path}
-				checkoutCount={data.goal.checkoutsCount}
+				checkoutCount={data.manyDays}
 				onComplete={complete}
 			/>
 		{/if}
@@ -117,7 +117,7 @@
 	<div out:fade={{ duration: 100 }}>
 		<Container>
 			<div class="flex h-full w-full flex-col gap-8 lg:px-58">
-				{#if data.goal.checkoutsCount >= data.goal.maxCheckoutsCount}
+				{#if data.manyDays >= data.goal.maxCheckoutsCount}
 					<div class="flex h-full flex-col justify-center gap-4">
 						<HeadingLarge>Thanks for using Steady!</HeadingLarge>
 						<ParagraphDimmed
@@ -221,7 +221,7 @@
 								<p>You're in</p>
 								<div class="flex items-end gap-2">
 									<h1 class="text-9xl font-medium">
-										{data.goal.checkoutsCount}<span class="text-xl">checkout(s)</span>
+										{data.manyDays}<span class="text-xl">checkout(s)</span>
 									</h1>
 								</div>
 							</div>
