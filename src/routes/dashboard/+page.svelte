@@ -204,14 +204,14 @@
 									><span class="font-medium underline"> click here </span></button
 								>
 							</ParagraphDimmed>
-							<ParagraphDimmed>
+							<!-- <ParagraphDimmed>
 								Oh, and one more thing—if you want to reset your progress, <button
 									class="cursor-pointer font-medium underline"
 									onclick={() => {
 										resetClicked = true;
 									}}>click here</button
 								> to reset the checkout
-							</ParagraphDimmed>
+							</ParagraphDimmed> -->
 						</div>
 
 						<div class="relative flex flex-1 flex-col bg-white">
