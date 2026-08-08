@@ -26,7 +26,10 @@ export const load = async (event) => {
 	}
 
 	let canCheckout = false;
-	let manyDays = calculateManyDays(goal.createdAt, new Date());
+	const createdDate = goal.createdAt;
+	createdDate.setHours(0, 0, 0, 0);
+
+	let manyDays = calculateManyDays(createdDate, new Date());
 	if (isYesterdayOrMore(goal.latestCheckoutsDate)) {
 		canCheckout = true;
 		manyDays--;
