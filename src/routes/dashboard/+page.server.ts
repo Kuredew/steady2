@@ -16,7 +16,8 @@ export const load = async (event) => {
 
 	try {
 		const res = await fetch('https://zenquotes.io/api/today', {
-			method: 'get'
+			method: 'get',
+			signal: AbortSignal.timeout(500)
 		});
 		const resJson = await res.json();
 
