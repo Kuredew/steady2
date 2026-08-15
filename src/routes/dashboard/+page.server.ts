@@ -98,14 +98,19 @@ export const actions = {
 		const user = event.locals.user;
 
 		try {
-			const goal = await GoalModel.findOne({ authorId: user?.id });
-			if (!goal)
-				return fail(400, {
-					message: 'Data not found'
-				});
-
-			// goal.checkoutsCount = 0;
-			await goal.save();
+			await GoalModel.findOneAndUpdate(
+				{ authorId: user?.id },
+				{
+					createdAt: new Date(),
+					latestCheckoutsDate: new Date()
+				},
+				{
+					timestamps: false, // 1. Matikan update otomatis dari Mongoose
+					overwriteImmutable: true, // 2. PAKSA ubah field yang terkunci/immutable
+					strict: false // 3. Matikan validasi skema yang ketat
+				}
+			);
+			console.log('DATA RESETTED');
 
 			return { success: true, message: 'Data resetted' };
 		} catch (e) {
