@@ -5,7 +5,7 @@ import { serializeNonPOJOs } from '$lib/util/serialize.js';
 import { fail, redirect } from '@sveltejs/kit';
 
 export const load = async (event) => {
-	let quote = 'The only true wisdom is in knowing you know nothing.';
+	const quote = 'The only true wisdom is in knowing you know nothing.';
 	const user = event.locals.user;
 
 	const goal = await GoalModel.findOne({ authorId: user?.id }).lean();
@@ -14,17 +14,17 @@ export const load = async (event) => {
 		throw redirect(303, '/dashboard/new');
 	}
 
-	try {
-		const res = await fetch('https://zenquotes.io/api/today', {
-			method: 'get',
-			signal: AbortSignal.timeout(500)
-		});
-		const resJson = await res.json();
+	// try {
+	// 	const res = await fetch('https://zenquotes.io/api/today', {
+	// 		method: 'get',
+	// 		signal: AbortSignal.timeout(500)
+	// 	});
+	// 	const resJson = await res.json();
 
-		quote = resJson[0].q;
-	} catch {
-		console.log('Fetching quote failed');
-	}
+	// 	quote = resJson[0].q;
+	// } catch {
+	// 	console.log('Fetching quote failed');
+	// }
 
 	let canCheckout = false;
 	const createdDate = goal.createdAt;
